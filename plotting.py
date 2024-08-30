@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+# Отрисовка линий, поясняющих границы маршрутизатора.
 def design_generation(number_of_devices, background, background_height):
     for x in number_of_devices:
         cv2.line(background, (x, 0), (x, background_height), (0, 0, 0), 10)
@@ -16,6 +17,7 @@ def design_generation(number_of_devices, background, background_height):
         rendering_text(x, 10, device_name, background, 2, (0, 0, 0))
 
 
+# Отрисовка текста на холсте
 def rendering_text(x, y, text, background, font_size, color, thickness=2):
     cv2.putText(
         background,
@@ -28,6 +30,10 @@ def rendering_text(x, y, text, background, font_size, color, thickness=2):
     )
 
 
+# Функция не доработана - функционал не реализован 
+# Функция, необходимая для предварительной обработки данных перед передачей их в функцию soft_generation.
+# Предполагалось, что она будет добавлять отступы на основе данных предыдущих пакетов. 
+# Это нужно, чтобы корректно отображать время отправки каждого пакета и при этом не искажать реальную картину происходящего.
 def preprocessing(packages, number_of_devices, session_time, mode=False):
 
     time_block, package_table = [], []
@@ -75,6 +81,8 @@ def preprocessing(packages, number_of_devices, session_time, mode=False):
         return heavy_generation(packages, session_time, number_of_devices)
 
 
+
+# Функция, создающая график с отступами между пакетами, чтобы облегчить чтение их содержимого (флаги и другие данные).
 def soft_generation(packages, number_of_devices, time_block):
 
     # высота фона
@@ -114,6 +122,7 @@ def soft_generation(packages, number_of_devices, time_block):
     return background
 
 
+# Функция создания графика без отступов между пакетами. Время отправки пакета на графике отображает реальное время отправки.
 def heavy_generation(package_table, min_session_time, device_ID):
 
     plt.figure(figsize=(9, 21), dpi=800)
